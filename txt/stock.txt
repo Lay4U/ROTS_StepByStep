@@ -1,0 +1,28 @@
+https://github.com/jaungiers/LSTM-Neural-Network-for-Time-Series-Prediction
+https://github.com/anfederico/Clairvoyant
+https://github.com/deependersingla/deep_trader
+https://github.com/achillesrasquinha/bulbea
+https://github.com/Ceruleanacg/Personae
+https://github.com/lilianweng/stock-rnn
+https://github.com/kh-kim/stock_market_reinforcement_learning # kospi
+https://github.com/tencia/stocks_rnn
+https://github.com/sebastianheinz/stockprediction
+https://github.com/dzitkowskik/StockPredictionRNN
+https://github.com/keon/deepstock
+https://github.com/robertmartin8/MachineLearningStocks
+https://github.com/llSourcell/Reinforcement_Learning_for_Stock_Prediction
+https://github.com/wzchen/stock_market_prediction
+https://github.com/jgpavez/LSTM---Stock-prediction
+https://github.com/jasti/Stock-Predictor
+https://github.com/llSourcell/predicting_stock_prices
+https://github.com/philipxjm/Deep-Convolution-Stock-Technical-Analysis
+
+https://www.kaggle.com/pablocastilla/predict-stock-prices-with-lstm
+
+https://www.researchgate.net/publication/321503983_Stock_price_prediction_using_LSTM_RNN_and_CNN-sliding_window_model
+
+https://m.blog.naver.com/wideeyed/221160038616
+
+https://tbacking.com/2017/08/18/%EC%88%9C%ED%99%98-%EC%8B%A0%EA%B2%BD%EB%A7%9D-lstm-%ED%99%9C%EC%9A%A9-%EC%A3%BC%EA%B0%80-%EC%98%88%EC%B8%A1/
+
+https://github.com/borisbanushev/stockpredictionai      -GAN

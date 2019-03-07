@@ -1,0 +1,2 @@
+plt.style.use('classic')
+plt.style.use('seaborn-whitegrid')
