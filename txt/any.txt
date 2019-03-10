@@ -1,0 +1,12 @@
+jt -t onedork -f hack -fs 16 -nf hack -nfs 16 -tf hack -tfs 16 -dfs 13 -ofs 13 -cellw 90% -T -N -kl
+jt -t onedork -f hack -fs 15 -nf hack -nfs 15 -ofs 10 -cellw 90%
+
+jt -t onedork -f dejavu -fs 15 -nf dejavu -nfs 15 -tf dejavu -tfs 15 -dfs 13 -ofs 13 -cellw 90% -T -N -kl
+
+​ 경기대 쿠티스 : http://kutis.kyonggi.ac.kr/webkutis/
+
+경기대 LMS : http://lms.kyonggi.ac.kr/
+
+경기대 수강신청 : http://kutis.kyonggi.ac.kr:8080/sugangLink.html
+
+https://github.com/borisbanushev/stockpredictionai
