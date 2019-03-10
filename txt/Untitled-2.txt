@@ -1,0 +1,173 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import math
+import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import Dense, LSTM, Dropout
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+
+from subprocess import check_output
+from keras.layers.core import Dense, Activation, Dropout
+from keras.layers.recurrent import LSTM
+from keras.models import Sequential
+from sklearn.model_selection import  train_test_split
+import time #helper libraries
+from sklearn.preprocessing import MinMaxScaler
+import matplotlib.pyplot as plt
+from numpy import newaxis
+
+
+
+def create_dataset(dataset, look_back=1):
+    dataX, dataY = [], []
+    for i in range(len(dataset)-look_back-1):
+        a = dataset[i:(i+look_back), :]
+        dataX.append(a)
+        dataY.append(dataset[i+look_back, 0])
+    return np.array(dataX), np.array(dataY)
+
+
+
+np.random.seed(7)
+
+
+
+################################################# 데이터 전처리
+df = pd.read_csv('kospi.csv')
+
+df['Date'] = pd.to_datetime(df.Date,format='%Y-%m-%d')
+df.index = df['Date']
+
+stock_price = df.Close.values.astype('float32')
+stock_price = stock_price.reshape(len(df), 1)
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+stock_price = scaler.fit_transform(stock_price)
+
+# train = scaler.fit_transform(df)
+# test = scaler.fit_transform(df2)
+train_size = int(len(stock_price) * 0.80)
+test_size = len(stock_price) - train_size
+train, test = stock_price[0:train_size,:], stock_price[train_size:len(stock_price),:]
+
+
+
+
+look_back = 10
+trainX, trainY = create_dataset(train, look_back)
+testX, testY = create_dataset(test, look_back)
+
+##################################### 모델 생성
+model = Sequential()
+
+model.add(LSTM(
+    return_sequences=True,
+    input_shape=(None, 1),
+    units=50))
+model.add(Dropout(0.2))
+
+model.add(LSTM(
+    100,
+    return_sequences=False))
+model.add(Dropout(0.2))
+
+model.add(Dense(
+    units=1))
+model.add(Activation('linear'))
+
+
+model.compile(loss='mse', optimizer='rmsprop')
+
+history=model.fit(
+    trainX,
+    trainY,
+    batch_size=128,
+    epochs=10,
+    validation_split=0.05)
+
+
+
+# plt.plot(history.history['loss'])
+# plt.plot(history.history['val_loss'])
+# plt.plot(history.history['acc'])
+# plt.title('model loss')
+# plt.ylabel('loss')
+# plt.xlabel('epoch')
+# plt.legend(['training', 'validation', 'accuracy'], loc='upper right')
+# plt.show()
+from sklearn.metrics import mean_squared_error
+p = model.predict(testX)
+train_score = model.evaluate(trainX, trainY, verbose=0)
+print(train_score)
+print()
+print(mean_squared_error(testY, p)*100000)
+
+import matplotlib.pyplot as pplt
+
+pplt.plot(testY)
+pplt.plot(p)
+pplt.legend(['testY', 'p'], loc='upper right')
+pplt.show()
+
+
+#
+# trainPredict = model.predict(trainX)
+# testPredict = model.predict(testX)
+# print(trainPredict)
+# print(testPredict)
+#
+# # Get something which has as many features as dataset
+# trainPredict_extended = np.zeros((len(trainPredict),3))
+# # Put the predictions there
+# trainPredict_extended[:,2] = trainPredict[:,0]
+# # Inverse transform it and select the 3rd column.
+# trainPredict = scaler.inverse_transform(trainPredict_extended) [:,2]
+# print(trainPredict)
+# # Get something which has as many features as dataset
+# testPredict_extended = np.zeros((len(testPredict),3))
+# # Put the predictions there
+# testPredict_extended[:,2] = testPredict[:,0]
+# # Inverse transform it and select the 3rd column.
+# testPredict = scaler.inverse_transform(testPredict_extended)[:,2]
+#
+#
+# trainY_extended = np.zeros((len(trainY),3))
+# trainY_extended[:,2]=trainY
+# trainY=scaler.inverse_transform(trainY_extended)[:,2]
+#
+#
+# testY_extended = np.zeros((len(testY),3))
+# testY_extended[:,2]=testY
+# testY=scaler.inverse_transform(testY_extended)[:,2]
+#
+#
+# # calculate root mean squared error
+# trainScore = math.sqrt(mean_squared_error(trainY, trainPredict))
+# print('Train Score: %.2f RMSE' % (trainScore))
+# testScore = math.sqrt(mean_squared_error(testY, testPredict))
+# print('Test Score: %.2f RMSE' % (testScore))
+#
+# # shift train predictions for plotting
+# trainPredictPlot = np.empty_like(dataset)
+# trainPredictPlot[:, :] = np.nan
+# trainPredictPlot[look_back:len(trainPredict)+look_back, 2] = trainPredict
+#
+# # shift test predictions for plotting
+# testPredictPlot = np.empty_like(dataset)
+# testPredictPlot[:, :] = np.nan
+# testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, 2] = testPredict
+#
+#
+#
+# #plot
+#
+# serie,=plt.plot(scaler.inverse_transform(dataset)[:,2])
+# prediccion_entrenamiento,=plt.plot(trainPredictPlot[:,2],linestyle='--')
+# prediccion_test,=plt.plot(testPredictPlot[:,2],linestyle='--')
+# plt.title('Consumo de agua')
+# plt.ylabel('cosumo (m3)')
+# plt.xlabel('dia')
+# plt.legend([serie,prediccion_entrenamiento,prediccion_test],['serie','entrenamiento','test'], loc='upper right')
+#
