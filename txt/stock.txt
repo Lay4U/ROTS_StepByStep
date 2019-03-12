@@ -17,6 +17,7 @@ https://github.com/jasti/Stock-Predictor
 https://github.com/llSourcell/predicting_stock_prices
 https://github.com/philipxjm/Deep-Convolution-Stock-Technical-Analysis
 
+https://github.com/Ceruleanacg/Personae
 https://www.kaggle.com/pablocastilla/predict-stock-prices-with-lstm
 
 https://www.researchgate.net/publication/321503983_Stock_price_prediction_using_LSTM_RNN_and_CNN-sliding_window_model
